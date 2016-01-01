@@ -1,0 +1,11 @@
+.config__step
+	.vp_20
+	label.checkbox__wrap
+		checkbox(model="model.form.rulesConfirmed")
+		span(ng-bind-html="'CONFIG.STEPS.FINISH.CONFIRM_DESC' | translate")
+	.vp_15
+	.btn.btn_40.btn_green.btn_inline.t-min-w200.t-text_center(
+		ng-disabled="!model.form.rulesConfirmed"
+		ng-click="model.form.rulesConfirmed && submitConfig()"
+		ng-bind="'CONFIG.STEPS.FINISH.BUTTON' | translate"
+	)

@@ -1,0 +1,16 @@
+.config__step(ng-class="{ 'config__step_checked': model.form.hackpack }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.HP_LOCATION.TITLE' | translate")
+	.config__step__description(ng-bind="'CONFIG.STEPS.HP_LOCATION.DESC' | translate")
+	.bselect.select_40.t-w100p
+		select.t-validate-highlight(
+			ng-model="model.form.hackpack"
+			ng-options="hackPack.slug as hackPack.name for hackPack in model.hackPacks"
+			ng-class="{ 'default' : !model.form.hackpack }"
+			required
+		)
+			option(
+				value=""
+				disabled
+				ng-bind="'CONFIG.STEPS.HP_LOCATION.SELECT_PLACEHOLDER' | translate"
+			)

@@ -1,0 +1,152 @@
+ion-view(view-title="Profile")
+	ion-content.profile
+		.p_10
+			.profile__main
+				.profile__avatar
+					user-avatar(ng-if="model.user", data="model.user")
+				.profile__name(ng-bind="model.user.full_name")
+				.profile__role(ng-bind="model.user.role")
+
+		.p_10
+
+			.profile__location-defined(ng-if="model.definedLocation && !model.user.city_id")
+				span(ng-bind-html="'PROFILE.LOCATION_DEFINED.TITLE' | translate: {location: model.definedLocation.name + ', ' + model.definedLocation.country}")
+				span.hp_10
+				.btns.t-inline-block
+					.btn.btn_22.btn_green(
+					ng-click="updateLocation()"
+					ng-bind="'PROFILE.LOCATION_DEFINED.ACCEPT_BUTTON' | translate"
+					)
+					.btn.btn_22.btn_red(
+					ng-click="cancelDefinedLocation()"
+					ng-bind="'PROFILE.LOCATION_DEFINED.DECLINE_BUTTON' | translate"
+					)
+
+			.adaptive-grid.adaptive-grid_min-340_max-items-2
+				.adaptive-grid__item
+					.info-list.info-list_header-with-hr
+
+						.info-list__item(ng-if="(RC('Expert', model.user.role) || RC('PR', model.user.role) || RC('NGO', model.user.role)) && model.user.companies.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.ORGANIZATION.TITLE' | translate")
+							.info-list__item__content
+								span(ng-repeat="company in model.user.companies")
+									a.t-link(
+									ng-href="{{ '/company/' + company.id }}"
+									ng-bind="company.name"
+									)
+									span(ng-if="!$last")
+										| ,
+										span.hp_5
+
+						.info-list__item(ng-if="model.user.media_types && model.user.media_types.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.MEDIA_TYPES.TITLE' | translate")
+							.info-list__item__content
+								span(ng-repeat="mediaType in model.user.media_types")
+									span(ng-bind="mediaType")
+									span.hsl(ng-if="!$last") /
+
+						.info-list__item(ng-if="model.user.city || model.user.country")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.LOCATION.TITLE' | translate")
+							.info-list__item__content(ng-bind="model.user.city + (model.user.country ? (', ' + model.user.country) : '')")
+
+						.info-list__item(ng-if="model.user.languages && model.user.languages.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.LANGUAGES.TITLE' | translate")
+							.info-list__item__content
+								.profile__languages
+									.profile__language(ng-repeat="item in model.user.languages")
+										span.profile__language__name(ng-bind="item.language")
+										span.profile__language__level(ng-bind="'(' + item.experience + ')'")
+
+						.info-list__item(ng-if="model.user.affiliations && model.user.affiliations.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.AFFILIATIONS.TITLE' | translate")
+							.info-list__item__content
+								.tags
+									.tag(
+									ng-repeat="affiliation in model.user.affiliations"
+									ng-bind="affiliation.name"
+									)
+
+						.info-list__item(ng-if="model.user.expertise && model.user.expertise.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="(RC('Expert', model.user.role) ? 'PROFILE.MAIN.INFO_LIST.EXPERTISE.TITLE_BY_ROLES.EXPERT' : (RC('PR', model.user.role) || RC('NGO', model.user.role) ? 'PROFILE.MAIN.INFO_LIST.EXPERTISE.TITLE_BY_ROLES.PR_NGO' : 'PROFILE.MAIN.INFO_LIST.EXPERTISE.TITLE_BY_ROLES.OTHERS')) | translate")
+							.info-list__item__content
+								.tags
+									.tag(
+									ng-repeat="name in model.user.expertise"
+									ng-bind="name"
+									)
+
+						.info-list__item(ng-if="model.user.skills && model.user.skills.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.SKILLS.TITLE' | translate")
+							.info-list__item__content
+								.tags
+									.tag(
+									ng-repeat="name in model.user.skills"
+									ng-bind="name"
+									)
+
+				.adaptive-grid__item
+					.info-list.info-list_header-with-hr
+
+						.info-list__item(ng-if="model.user.contacting")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.CONTACTING.TITLE' | translate")
+							.info-list__item__content(ng-bind="model.user.contacting")
+
+						.info-list__item(ng-if="model.user.payment_schedule")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="(RC('PR', model.user.role) || RC('NGO', model.user.role) ? 'PROFILE.MAIN.INFO_LIST.PAYMENT_SCHEDULE.TITLE_BY_ROLES.PR_NGO' : (RC('Editor', model.user.role) ? 'PROFILE.MAIN.INFO_LIST.PAYMENT_SCHEDULE.TITLE_BY_ROLES.EDITOR' : 'PROFILE.MAIN.INFO_LIST.PAYMENT_SCHEDULE.TITLE_BY_ROLES.OTHERS')) | translate")
+							.info-list__item__content(ng-bind="model.user.payment_schedule")
+
+						.info-list__item(ng-if="model.user.how_approach_me")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="(RC('Expert', model.user.role) || RC('PR', model.user.role) || RC('NGO', model.user.role) ? 'PROFILE.MAIN.INFO_LIST.HOW_APPROACH_ME.TITLE_BY_ROLES.EXPERT_PR_NGO' : 'PROFILE.MAIN.INFO_LIST.HOW_APPROACH_ME.TITLE_BY_ROLES.OTHERS') | translate")
+							.info-list__item__content(ng-bind="model.user.how_approach_me")
+
+						.info-list__item(ng-if="model.user.deadlines")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.DEADLINES.TITLE' | translate")
+							.info-list__item__content(ng-bind="model.user.deadlines")
+
+						.info-list__item(ng-if="model.user.special_features")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.SPECIAL_FEATURES.TITLE' | translate")
+							.info-list__item__content(ng-bind="model.user.special_features")
+
+						.info-list__item(ng-if="model.user.going_live")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.GOING_LIVE.TITLE' | translate")
+							.info-list__item__content(ng-bind="model.user.going_live")
+
+						.info-list__item(ng-if="model.user.gears && model.user.gears.length")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.INVENTORY.TITLE' | translate")
+							.info-list__item__content
+								span(ng-repeat="item in model.user.gears")
+									span(ng-bind="item.description")
+									span(ng-if="!$last")
+										| ,
+										span.hp_5
+
+						.info-list__item(ng-if="model.user.has_car")
+							.info-list__item__header
+								.info-list__item__title(ng-bind="'PROFILE.MAIN.INFO_LIST.CAR.TITLE' | translate")
+							.info-list__item__content(ng-bind="'PROFILE.MAIN.INFO_LIST.CAR.CONTENT' | translate")
+
+		.item.item-divider Colleagues
+
+		.members-list
+			a.members-list__member(
+				ng-repeat="user in model.colleagues"
+				ng-click="openNestedProfile(user.id)"
+			)
+				.members-list__member__avatar
+					user-avatar(data="user")
+				b.members-list__member__name(ng-bind="user.full_name")
+				.members-list__member__role(ng-bind="user.role")

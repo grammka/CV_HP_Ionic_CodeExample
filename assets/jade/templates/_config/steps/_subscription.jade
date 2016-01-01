@@ -1,0 +1,31 @@
+.config__step(ng-class="{ 'config__step_checked': model.form.subscription }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.SUBSCRIPTION.TITLE' | translate")
+	.config__step__description(ng-bind-html="model.texts.subscriptionDesc[model.form.role] | translate")
+	.config__subscriptions
+		.config__subscription__wrapper.t-w50p(
+			ng-repeat="subscription in model.subscriptions[model.form.role]"
+			ng-class="{ 'disabled':	subscription.disabled }"
+		)
+			.config__subscription
+				.config__subscription__in
+					.config__subscription__title(ng-bind="subscription.title | translate")
+					.config__subscription__subtitle(ng-bind="subscription.subTitle | translate")
+					.config__subscription__price(ng-bind="subscription.price | translate")
+					.config__subscription__price-desc(ng-bind="subscription.priceDesc | translate")
+					.config__subscription__pricelist
+						.config__subscription__pricelist__item(
+							ng-repeat="text in subscription.priceList track by $index"
+							ng-bind-html="text | translate"
+						)
+					.config__subscription__select
+						label.btn.btn_50.btn_green.t-text_center.config__subscription__select__btn(
+							ng-class="{ 'selected': model.form.subscription == subscription.value }"
+						)
+							.config__subscription__select__check.sl-icon.sl-icon-check-2
+							span(ng-bind="'CONFIG.STEPS.SUBSCRIPTION.SELECT_BUTTON' | translate")
+							input.t-hidden-input(
+								type="radio"
+								ng-model="model.form.subscription"
+								value="{{ subscription.value }}"
+							)

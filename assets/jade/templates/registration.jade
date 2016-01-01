@@ -1,0 +1,33 @@
+.config
+	.config__steps(ng-show="model.invitedDataLoaded")
+
+		div(ng-if="model.invitedByCompany")
+			.config__section
+				include _config/steps/_company-exist
+
+			.config__section(ng-if="model.searchCompanyConfirmed")
+				include _config/steps/_email-password
+
+			.config__section(ng-if="model.form.email && model.form.password")
+				include _config/steps/_finish
+
+		div(ng-if="!model.invitedByCompany")
+			include _config/steps/_role
+
+			div(ng-if="['Journalist', 'Photographer', 'Videographer'].indexOf(model.form.role) >= 0")
+				include _config/_journalist
+
+			div(ng-if="model.form.role == 'Fixer'")
+				include _config/_fixer
+
+			div(ng-if="model.form.role == 'Expert'")
+				include _config/_expert
+
+			div(ng-if="model.form.role == 'Editor'")
+				include _config/_editor
+
+			div(ng-if="model.form.role == 'PR'")
+				include _config/_pr
+
+			div(ng-if="model.form.role == 'NGO'")
+				include _config/_ngo

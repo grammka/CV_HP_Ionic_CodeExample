@@ -1,0 +1,60 @@
+.input
+.binput
+	width: 100%
+	background-color: #fff
+	font-family: "Open Sans", Tahoma, Arial, sans-serif
+	box-sizing border-box
+	&.t-validate-highlight
+	.t-validate-highlight &
+		&.ng-dirty.ng-valid
+			background-color #CAFFDA
+			border 1px solid #50D077
+	&.t-validate-warning
+		background-color: #FFECD3 !important
+		border-color #EC8F00 !important
+		color: #EC6C00 !important
+	&.t-validate-failed
+	//.t-validate-highlight.ng-submitted &.ng-invalid
+		background-color: #FFD3D3 !important
+		border 1px solid #EC0000 !important
+		color: #EC0000 !important
+		+input-placeholder()
+			color: #EC0000 !important
+	&.disabled,
+	&[disabled]
+		background-color #ddd
+		border-color #ccc
+	+input-placeholder()
+		color $light-text-color
+
+/*.input*/
+	/*border 0*/
+
+.input
+.binput
+	border 1px solid #ccc
+
+
+
+.input_hidden
+	opacity: 0
+	position: fixed
+	left: -999999px
+
+.input_32
+	height: 32px !important
+	line-height: 20px !important
+	padding 6px 10px !important
+	font-size: 13px !important
+
+.input_36
+	height: 36px !important
+	line-height: 22px !important
+	padding 7px 10px !important
+	font-size: 14px !important
+
+.input_40
+	height: 40px !important
+	line-height: 24px !important
+	padding 8px 10px !important
+	font-size: 14px !important

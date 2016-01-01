@@ -1,0 +1,19 @@
+.config__step(
+	ng-if="model.roles"
+	ng-class="{ 'config__step_checked': model.form.role }"
+)
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.ROLE.TITLE' | translate")
+	.bselect.select_40.t-w100p
+		select.t-validate-highlight(
+			ng-model="model.form.role"
+			ng-options="role.value as (role.label | translate) for role in model.roles"
+			ng-class="{ 'default' : !model.form.role }"
+			ng-disabled="model.disabledFields.role"
+			ng-change="onRoleChanged()"
+		)
+			option(
+				value=""
+				disabled
+				ng-bind="'CONFIG.STEPS.ROLE.SELECT_PLACEHOLDER' | translate"
+			)

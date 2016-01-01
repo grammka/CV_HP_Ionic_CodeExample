@@ -1,0 +1,15 @@
+.config__step(ng-class="{ 'config__step_checked': model.form.company.website }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.COMPANY_WEBSITE.TITLE' | translate")
+	.config__step__description(ng-bind="'CONFIG.STEPS.COMPANY_WEBSITE.DESC' | translate")
+	input.binput.input_40.t-validate-highlight(
+		type="text"
+		search-companies-by-website
+		on-search="onCompanySearch(company)"
+		on-clear-search="onCompanySearchClear()"
+		ng-model="model.form.company.website"
+		placeholder="{{ 'CONFIG.STEPS.COMPANY_WEBSITE.INPUT_PLACEHOLDER' | translate }}"
+		ng-disabled="model.disabledFields.companyWebsite"
+		ng-pattern="regExp.url"
+		required
+	)

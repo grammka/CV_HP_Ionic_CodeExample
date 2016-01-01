@@ -1,0 +1,11 @@
+.config__section
+	include steps/_hp-location
+
+.config__section(ng-if="model.form.hackpack")
+	include steps/_social-network
+
+.config__section(ng-if="model.form.socials.facebook || model.form.socials.twitter || model.form.socials.linkedin")
+	include steps/_email-password
+
+.config__section(ng-if="model.form.email && model.form.password")
+	include steps/_finish

@@ -1,0 +1,18 @@
+ion-nav-bar.hp-nav-bar
+	ion-nav-back-button
+
+ion-tabs.hp-tabs.tabs-icon-only.tabs-icon-top
+	ion-tab(title="{{ 'SIDEBAR.NAVIG.SEARCH' | translate }}", icon="sl-icon sl-icon-search", ui-sref="root.tabs.search")
+		ion-nav-view(name="search-tab")
+
+	//ion-tab(title="Messenger", icon="sl-icon sl-icon-chat-double-bubble-2", ui-sref="root.tabs.messenger")
+	//	ion-nav-view(name="messenger-tab")
+
+	ion-tab(title="{{ 'SIDEBAR.NAVIG.MY_HACK_PACKS' | translate }}", icon="sl-icon sl-icon-globe-2", ui-sref="root.tabs.hackPacks")
+		ion-nav-view(name="hack-packs-tab")
+
+	ion-tab(title="{{ 'SIDEBAR.NAVIG.SNAP_FEED' | translate }}", icon="sl-icon sl-icon-flash-2", ui-sref="root.tabs.snapFeed")
+		ion-nav-view(name="snap-feed-tab")
+
+	ion-tab(title="{{ 'SIDEBAR.NAVIG.SETTINGS' | translate }}", icon="sl-icon sl-icon-cog", ui-sref="root.tabs.settings")
+		ion-nav-view(name="settings-tab")

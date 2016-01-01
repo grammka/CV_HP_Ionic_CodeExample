@@ -1,0 +1,32 @@
+sqrt(x)
+	return math(x, 'sqrt')
+
+height-lineheight($height)
+	height $height
+	line-height ($height)
+
+height-lineheight-2($height)
+	height $height
+	line-height ($height - 2px)
+
+display-inline-block()
+	display: -moz-inline-stack
+	display: inline-block
+	vertical-align: top
+	zoom: 1
+	*display: inline
+
+no-select()
+	user-select: none
+
+input-placeholder()
+	&.placeholder
+		{block}
+	&:-moz-placeholder
+		{block}
+	&::-moz-placeholder
+		{block}
+	&:-ms-input-placeholder
+		{block}
+	&::-webkit-input-placeholder
+		{block}

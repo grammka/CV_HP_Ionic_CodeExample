@@ -1,0 +1,35 @@
+.config__section
+	include steps/_subscription
+
+div(ng-if="model.form.subscription == 'individual'")
+	.config__section(ng-if="model.form.subscription")
+		include steps/_hp-location
+
+	.config__section(ng-if="model.form.hackpack")
+		include steps/_social-network
+
+	.config__section(ng-if="model.form.socials.facebook || model.form.socials.twitter || model.form.socials.linkedin")
+		include steps/_email-password
+
+	.config__section(ng-if="model.form.email && model.form.password")
+		include steps/_finish
+
+
+div(ng-if="model.form.subscription == 'full_access'")
+	.config__section
+		include steps/_social-network
+
+	.config__section(ng-if="model.form.socials.facebook || model.form.socials.twitter || model.form.socials.linkedin")
+		include steps/_company-website
+
+	.config__section(ng-if="model.form.company.website && model.searchCompanyExist == false")
+		include steps/_company-name
+
+	.config__section(ng-if="model.form.company.website && model.searchCompanyExist == true")
+		include steps/_company-exist
+
+	.config__section(ng-if="(model.searchCompanyExist == false || model.searchCompanyConfirmed) && model.form.company.name && model.form.company.website ")
+		include steps/_email-password
+
+	.config__section(ng-if="model.form.email && model.form.password")
+		include steps/_finish

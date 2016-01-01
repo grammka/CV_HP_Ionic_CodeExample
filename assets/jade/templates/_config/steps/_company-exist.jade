@@ -1,0 +1,27 @@
+.config__step(ng-class="{ 'config__step_checked': model.searchCompanyConfirmed }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.COMPANY_EXIST.ASSOCIATED_WITH' | translate")
+
+	.members-grid
+		a.members-grid__member(
+			ng-href="{{ model.form.company.website }}"
+			target="_blank"
+		)
+			.members-grid__member__avatar
+				user-avatar(data="model.form.company")
+			b.members-grid__member__name(ng-bind="model.form.company.name")
+			.members-grid__member__role(ng-bind="model.form.company.website")
+
+	div(ng-hide="model.searchCompanyConfirmed")
+		.vp_10
+		b(ng-bind="'CONFIG.STEPS.COMPANY_EXIST.PLZ_CONFIRM' | translate")
+		.vp_10
+		.btns
+			.btn.btn_32.btn_green(
+				ng-click="confirmSelectedCompany()"
+				ng-bind="'CONFIG.STEPS.COMPANY_EXIST.CONFIRM_BUTTON' | translate"
+			)
+			.btn.btn_32.btn_red(
+				ng-click="declineSelectedCompany()"
+				ng-bind="'CONFIG.STEPS.COMPANY_EXIST.DECLINE_BUTTON' | translate"
+			)

@@ -1,0 +1,80 @@
+ion-view(view-title="Snap Feed")
+	ion-content
+		ion-refresher(on-refresh="refresh()")
+
+		div
+			.my-item(ng-repeat="snap in model.snaps track by $index")
+
+				div(ng-if="snap.snap_type == 'idea'")
+					.snap__header__icon.sl-icon(ng-class="'snap__header__icon_' + snap.snap_type")
+					a.snap__idea-content(
+						ui-sref="root.tabs.snapFeedSnap({snapId: snap.id})"
+						ng-bind-html="snap.teaser"
+					)
+
+				div(ng-if="snap.snap_type != 'idea'")
+					.snap__header
+						.snap__header__icon.sl-icon(ng-class="'snap__header__icon_' + snap.snap_type")
+						.snap__header__hidden-title(ng-bind="snap.title")
+						.snap__header__title__container
+							a.snap__header__title.t-link(
+								ng-if="snap.title"
+								ui-sref="root.tabs.snapFeedSnap({snapId: snap.id})"
+								ng-bind="snap.title"
+							)
+
+					//
+						.snap__header__container
+							span.snap__header__hidden-title(ng-bind="snap.title")
+							.snap__header
+								.snap__header__icon.sl-icon(ng-class="'snap__header__icon_' + snap.snap_type")
+								a.snap__header__title.t-link(
+									ng-if="snap.title"
+									ui-sref="ws.snapFeedSnap({snapId: snap.id})"
+									ng-bind="snap.title"
+								)
+
+					//.snap__header__container
+					//	.snap__header__pusher
+					//		.snap__header__hidden-title(ng-bind="snap.title")
+					//	.snap__header.clearfix
+					//		.snap__header__icon.sl-icon(ng-class="'snap__header__icon_' + snap.snap_type")
+					//		.snap__header__info(ng-if="snap.snap_type == 'job' && snap.reward_value")
+					//			span(ng-if="snap.reward_range")
+					//				span.t-text_light(ng-bind="snap.reward_range")
+					//				span.hp_5
+					//			b(ng-bind="snap.reward_value")
+					//			span.hp_5
+					//			b(ng-bind="snap.reward_currency_symbol")
+					//		.snap__header__info(ng-if="snap.snap_type == 'event' && (snap.event_start || snap.event_finish)")
+					//			b(ng-if="snap.event_start" ng-bind="snap.event_start | amDateFormat:'MMM DD'")
+					//			span(ng-if="snap.event_start && snap.event_finish")
+					//				span.hp_8
+					//				span.t-text_light &ndash;
+					//				span.hp_8
+					//			b(ng-if="snap.event_finish" ng-bind="snap.event_finish | amDateFormat:'MMM DD'")
+					//		a.snap__title.t-link(
+					//		ng-if="snap.title"
+					//		ui-sref="ws.snapFeedSnap({snapId: snap.id})"
+					//		ng-bind="snap.title"
+					//		)
+
+					.snap__content
+						.snap__teaser(ng-bind-html="snap.teaser || snap.description")
+
+				.snap__footer
+					span(ng-if="snap.affiliation")
+						span.snap__author-name(ng-bind="snap.affiliation")
+						span.hsl /
+					a.snap__author-name.t-link(
+						ui-sref="root.tabs.snapFeedProfile({userId: snap.author.id})"
+						ng-bind="snap.author.full_name"
+					)
+					span.hp_8
+					span.snap__posted-date(am-time-ago="snap.created_at")
+
+		ion-infinite-scroll(
+			ng-if="model.nextPageUrl || !model.snaps"
+			on-infinite="loadMore()"
+			distance="10%"
+		)

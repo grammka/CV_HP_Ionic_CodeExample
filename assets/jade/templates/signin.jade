@@ -1,0 +1,32 @@
+.signin__container
+	.signin
+
+		.signin__top
+			.signin__switch-lang(
+				ng-click="switchLanguage()"
+				ng-bind="'LANDING.SWITCH_LANGUAGE' | translate"
+			)
+			img.signin__logo(src="data/img/logo.svg")
+
+		.signin__bottom
+			form.signin__form.t-validate-highlight(
+				name="SignInForm"
+				ng-submit="SignInForm.$valid && submitSignInForm()"
+				novalidate
+			)
+				.list.list-inset
+					label.item.item-input
+						input(type="email" ng-model="model.form.email" placeholder="Email")
+					label.item.item-input
+						input(type="password" ng-model="model.form.password" placeholder="{{ 'COMMON.PASSWORD' | translate }}")
+
+				label.button.button-block.button-balanced.signin__btn
+					input.t-hidden-input(type="submit")
+					span(ng-bind="'COMMON.SIGN_IN' | translate")
+
+			.t-text_center.vp_10
+				a.signin__dont-have-account(
+					ui-sref="root.registration"
+					ui-sref-opts="{reload: true}"
+					ng-bind="'LOGIN.DONT_HAVE_ACCOUNT' | translate"
+				)

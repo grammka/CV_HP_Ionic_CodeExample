@@ -1,0 +1,29 @@
+ion-view(view-title="Settings")
+	ion-content(has-header="true")
+		.list
+			.item.item-divider(ng-bind="'SETTINGS.COMMON.SELECT_TITLE' | translate")
+			.item
+				.select.select_32.t-w100p
+					select(
+						ng-model="model.user.interface_language"
+						ng-options="language.value as language.label for language in model.interfaceLanguageOptions"
+						ng-class="{ 'default' : !model.user.interface_language }"
+						ng-change="switchInterfaceLanguage()"
+					)
+						option(ng-bind="'SETTINGS.COMMON.SELECT_PLACEHOLDER' | translate" value="" disabled)
+
+			.item.item-divider(ng-bind="'SETTINGS.EMAIL_NOTIFICATIONS.TITLE' | translate")
+			.item
+				.info-list__item(ng-repeat="(key, item) in model.notifications")
+					label.checkbox__wrap
+						checkbox(
+							model="item.value"
+							ng-change="toggleNotification(key)"
+						)
+						span(ng-bind="item.label | translate")
+
+			.padding
+				button.button.button-block.button-assertive(
+					ng-bind="'SIDEBAR.NAVIG.LOGOUT' | translate"
+					ng-click="logout()"
+				)

@@ -1,0 +1,11 @@
+.config__step(ng-class="{ 'config__step_checked': model.form.company.website }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__title(ng-bind="'CONFIG.STEPS.COMPANY_NAME.TITLE' | translate")
+	.config__step__description(ng-bind="'CONFIG.STEPS.COMPANY_NAME.DESC' | translate")
+	input.binput.input_40.t-validate-highlight(
+		type="text"
+		ng-model="model.form.company.name"
+		placeholder="{{ 'CONFIG.STEPS.COMPANY_NAME.INPUT_PLACEHOLDER' | translate }}"
+		ng-disabled="model.disabledFields.companyName"
+		required
+	)

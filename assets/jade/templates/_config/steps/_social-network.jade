@@ -1,0 +1,22 @@
+.config__step(ng-class="{ 'config__step_checked': model.form.socials.facebook || model.form.socials.twitter || model.form.socials.linkedin }")
+	.config__step__check.sl-icon.sl-icon-check-2
+	.config__step__loader(ng-if="model.socialLoading")
+	.config__step__title(ng-bind="'CONFIG.STEPS.SOCIAL_NETWORK.TITLE' | translate")
+	.config__step__description
+		span(
+			ng-if="RC('Journalist', model.form.role) || RC('Photographer', model.form.role) || RC('Videographer', model.form.role) || RC('Fixer', model.form.role) || RC('Editor', model.form.role)"
+			ng-bind="'CONFIG.STEPS.SOCIAL_NETWORK.DESC_BY_ROLES.JOURNALIT_FIXER_EDITOR' | translate"
+		)
+		span(
+			ng-if="RC('Expert', model.form.role) || RC('PR', model.form.role) || RC('NGO', model.form.role)"
+			ng-bind="'CONFIG.STEPS.SOCIAL_NETWORK.DESC_BY_ROLES.EXPERT_PR_NGO' | translate"
+		)
+	.btns
+		.vp_10(ng-repeat="(socialName, data) in model.form.socials")
+			a.btn.btn_with-l-icon.btn_36(
+				ng-class="'btn_' + socialName + (data ? ' connected' : '')"
+				ng-click="!data && signWithSocial(socialName)"
+			)
+				i.btn__l-icon.socicon(ng-if="!data", ng-class="'socicon-' + socialName")
+				i.btn__l-icon.sl-icon.sl-icon-check-2(ng-if="data")
+				span(ng-bind="socialName + ' ' + (data ? 'connected' : '')")
